@@ -2,6 +2,7 @@ package com.example.demo.student;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 //these annotations are for mapping our student class to a table in db
 @Entity //this is for hibernate
@@ -23,6 +24,7 @@ public class Student {
     private String name;
     private String email;
     private LocalDate dob;
+    @Transient                   //this says remove Id from table
     private Integer age;
 
     public Student() {
@@ -31,18 +33,15 @@ public class Student {
     public Student(Long id,
                    String name,
                    String email,
-                   LocalDate dob,
-                   Integer age) {
+                   LocalDate dob) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
     }
     public Student(String name,
                    String email,
-                   LocalDate dob,
-                   Integer age) {
+                   LocalDate dob) {
         this.name = name;
         this.email = email;
         this.dob = dob;
@@ -82,7 +81,7 @@ public class Student {
     }
 
     public Integer getAge() {
-        return age;
+        return Period.between(dob,LocalDate.now()).getYears();
     }
 
     public void setAge(Integer age) {
