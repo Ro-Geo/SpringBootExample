@@ -9,6 +9,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /*@Component  //to say that this is bean class*/
 @Service  // for more readability spring provides this annotation ;same as @Component
@@ -29,6 +30,14 @@ public class StudentService {
     }
 
     public void addNewStudent(Student student) {
+        Optional<Student>studentOptional= studentRepository.findStudentByEmail(student.getEmail());
+        if(studentOptional.isPresent()){
+            throw new IllegalStateException("Email taken");
+        }
+        else{
+            studentRepository.save(student);
+        }
+
         System.out.println(student);
     }
 }
