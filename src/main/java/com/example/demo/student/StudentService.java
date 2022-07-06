@@ -24,8 +24,11 @@ public class StudentService {
     @GetMapping                //inorder for this method to serve as restful endpoint.for we want to get something out from our server.
     public List<Student> getStudents(){
 
-//      ArrayList<Student> list =  new ArrayList<Student>(Arrays.asList(s1));
 //		ArrayList<String> friends =  new ArrayList<>(Arrays.asList("Peter", "Paul"));
         return studentRepository.findAll();                //this returns a list to us
+    }
+
+    public void addNewStudent(Student student) {
+        System.out.println(student);
     }
 }
